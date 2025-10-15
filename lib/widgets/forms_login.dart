@@ -2,6 +2,7 @@ import 'package:ehi_system/themes/colors.dart';
 import 'package:ehi_system/themes/texts.dart';
 import 'package:flutter/material.dart';
 
+/// Classe representa o Widget de captura de dados do usuário
 class FormsLogin extends StatefulWidget {
   const FormsLogin({super.key});
 
@@ -26,31 +27,33 @@ class _FormsLoginState extends State<FormsLogin> {
             //alinhamento vertical.
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // define o tamanho da box do formulário de login
-              SizedBox(
-                width: 300,
+              //Input User Credentials
+              TextFormField(
+                selectAllOnFocus: true,
+                textAlign: TextAlign.center,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira um usuário';
+                  }
 
-                child:
-                    //campos do formulário
-                    TextFormField(
-                      textAlign: TextAlign.center,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Por favor, insira um usuário';
-                        }
-
-                        return null;
-                      },
-                      decoration:
-                          //Define o ícone a esquerda do campo
-                          InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: hintTextFormUser,
-                            icon: const Icon(Icons.person),
-                            iconColor: azul60,
-                          ),
+                  return null;
+                },
+                decoration:
+                    //Define o ícone a esquerda do campo
+                    InputDecoration(
+                      border: OutlineInputBorder(),
+                      icon: Icon(Icons.person),
+                      iconColor: azul60,
+                      labelText: textLabelFormInput,
+                      helperText: helperTextInputForms,
+                      errorText: errorTextInputForms,
+                      focusColor: azul60,
+                      hoverColor: azul60,
                     ),
               ),
+              //Input User Password
+              TextFormField(),
+
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {

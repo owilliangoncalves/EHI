@@ -1,3 +1,4 @@
 String homeTitle = 'Página Inicial - Login';
-String hintTextFormUser = 'USUÁRIO DE REDE';
-
+String textLabelFormInput = 'USUÁRIO DE REDE';
+String helperTextInputForms = 'DRT ou email @einstein.br';
+String errorTextInputForms = 'DRT ou email inválido';
