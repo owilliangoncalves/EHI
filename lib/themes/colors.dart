@@ -9,3 +9,7 @@ const cinzaK40 = Color(0xe6bababa);
 const cinzak20 = Color(0xe6d1d4d4);
 const cinzaK10 = Color(0xe6ededed);
 const cinzaK5 = Color(0xfcf2f2f2);
+const bgGradient = LinearGradient(
+  colors: [azul60, azul25, azul15],
+  stops: [0.6, 0.75, 1.0],
+);
