@@ -19,4 +19,10 @@ flutter:
   uses-material-design: true
   fonts:
     - family: 'Montserrat'
-      asset: 
+      fonts:
+        - asset: './assets/fonts/montserrat/Montserrat-Regular.ttf'
+        - asset: './assets/fonts/montserrat/Montserrat-Italic.ttf'
+          style: italic
+        - asset: './assets\fonts\montserrat\Montserrat-SemiBold.ttf'
+          weight: 700
+
