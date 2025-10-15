@@ -1,3 +1,4 @@
+import 'package:ehi_system/screens/home.dart';
 import 'package:ehi_system/themes/texts.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: homeTitle,
       theme: ThemeData(fontFamily: 'Montserrat'),
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+      home: HomeScreen(homeTitle: homeTitle),
     );
   }
 }
