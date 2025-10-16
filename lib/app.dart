@@ -1,17 +1,16 @@
-import 'package:ehi_system/screens/home.dart';
-import 'package:ehi_system/themes/texts.dart';
+import 'package:ehi_system/appFunctions/get_home_screen.dart';
+import 'package:ehi_system/appThemes/texts.dart';
 import 'package:flutter/material.dart';
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: homeTitle,
-      theme: ThemeData(fontFamily: 'Montserrat'),
-      home: HomeScreen(homeTitle: homeTitle),
+      debugShowCheckedModeBanner: debug,
+      theme: theme,
+      home: getHomeScreen(),
     );
   }
 }
