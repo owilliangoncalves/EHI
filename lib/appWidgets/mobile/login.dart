@@ -1,18 +1,19 @@
+import 'package:ehi_system/appThemes/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:ehi_system/themes/texts.dart';
+import 'package:ehi_system/appThemes/texts.dart';
 
 ///StateFulWidget que representa o forms de login com redimensionamento da imagem
-class FormsLogin extends StatefulWidget {
+class MobileFormsLogin extends StatefulWidget {
   //faz ligação com a super da classe que é extendida
-  const FormsLogin({super.key});
+  const MobileFormsLogin({super.key});
 
   //subscrição do método de build
   @override
-  State<FormsLogin> createState() => _FormsLoginState();
+  State<MobileFormsLogin> createState() => _MobileFormsLoginState();
 }
 
 ///Classe privada de estados do forms de lofin
-class _FormsLoginState extends State<FormsLogin> {
+class _MobileFormsLoginState extends State<MobileFormsLogin> {
   // A chave para gerenciar o estado do formulário.
   final _formKey = GlobalKey<FormState>();
 
@@ -89,9 +90,12 @@ class _FormsLoginState extends State<FormsLogin> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: SizedBox(
-            // Ocupa a altura da tela, permitindo o alinhamento central.
-            height: MediaQuery.of(context).size.height,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              // Ocupa a altura da tela, permitindo o alinhamento central.
+              minHeight: MediaQuery.of(context).size.height,
+              minWidth: MediaQuery.of(context).size.width,
+            ),
             child: Form(
               key: _formKey,
               child: Column(
@@ -104,10 +108,11 @@ class _FormsLoginState extends State<FormsLogin> {
                     height: _imageHeight,
                     child: Image.asset(uriLogo, fit: BoxFit.contain),
                   ),
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 30),
                   TextFormField(
                     controller: _userController,
                     focusNode: _userFocusNode,
+
                     decoration: const InputDecoration(
                       labelText: 'Usuário',
                       icon: Icon(Icons.person),
@@ -137,13 +142,42 @@ class _FormsLoginState extends State<FormsLogin> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 30),
-                  _isLoading
-                      ? const CircularProgressIndicator()
-                      : ElevatedButton(
+                  SizedBox(height: 30),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
                           onPressed: _submitForm,
-                          child: const Text('Entrar'),
+                          child: const Text(
+                            'Criar conta',
+                            style: TextStyle(
+                              color: cinzak90,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
+                        const SizedBox(width: 30),
+                        _isLoading
+                            ? const CircularProgressIndicator()
+                            : ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor: WidgetStatePropertyAll(
+                                    azul60,
+                                  ),
+                                ),
+                                onPressed: _submitForm,
+                                child: const Text(
+                                  'Entrar',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
