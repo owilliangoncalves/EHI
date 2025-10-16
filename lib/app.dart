@@ -8,9 +8,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: debug,
-      theme: theme,
+      debugShowCheckedModeBanner: AppStrings.debugStatus.debug,
       home: getHomeScreen(),
+      theme: FontApp.montSerrat,
     );
   }
 }
