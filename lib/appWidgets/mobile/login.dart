@@ -1,6 +1,6 @@
-import 'package:ehi_system/appThemes/colors.dart';
+import 'package:ehi_system/Appthemes/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:ehi_system/appThemes/texts.dart';
+import 'package:ehi_system/Appthemes/texts.dart';
 
 ///StateFulWidget que representa o forms de login com redimensionamento da imagem
 class MobileFormsLogin extends StatefulWidget {
