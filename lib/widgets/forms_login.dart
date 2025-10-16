@@ -1,71 +1,152 @@
-import 'package:ehi_system/themes/colors.dart';
-import 'package:ehi_system/themes/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:ehi_system/themes/texts.dart';
 
-/// Classe representa o Widget de captura de dados do usuário
+///StateFulWidget que representa o forms de login com redimensionamento da imagem
 class FormsLogin extends StatefulWidget {
+  //faz ligação com a super da classe que é extendida
   const FormsLogin({super.key});
 
+  //subscrição do método de build
   @override
   State<FormsLogin> createState() => _FormsLoginState();
 }
 
+///Classe privada de estados do forms de lofin
 class _FormsLoginState extends State<FormsLogin> {
+  // A chave para gerenciar o estado do formulário.
+  final _formKey = GlobalKey<FormState>();
+
+  // Controladores para acessar compos de texto
+  final _userController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  // Gerenciar o estado de foco dos campos.
+  final _userFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+
+  // Variáveis de estado.
+  double _imageHeight = 100.0;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Adiciona "listeners" para reagir às mudanças de foco.
+    _userFocusNode.addListener(_onFocusChange);
+    _passwordFocusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    _userFocusNode.removeListener(_onFocusChange);
+    _passwordFocusNode.removeListener(_onFocusChange);
+
+    _userController.dispose();
+    _passwordController.dispose();
+    _userFocusNode.dispose();
+    _passwordFocusNode.dispose();
+
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    final hasFocus = _userFocusNode.hasFocus || _passwordFocusNode.hasFocus;
+    setState(() {
+      _imageHeight = hasFocus ? 100.0 : 150.0;
+    });
+  }
+
+  /// Processa a submissão do formulário.
+  Future<void> _submitForm() async {
+    // Verifica se o formulário é válido.
+    if (_formKey.currentState?.validate() ?? false) {
+      setState(() => _isLoading = true);
+
+      // Simula uma chamada de rede.
+      await Future.delayed(const Duration(seconds: 2));
+
+      // Usa os controladores para pegar os valores.
+      final username = _userController.text;
+      //final password = _passwordController.text;
+
+      // Esconde o teclado
+      FocusScope.of(context).unfocus();
+
+      // Mostra o resultado.
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login bem-sucedido para: $username')),
+      );
+
+      setState(() => _isLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    //Cria a key que controla o formulário. Essencial para uso do validator.
-    // ignore: no_leading_underscores_for_local_identifiers
-    final _formKey = GlobalKey<FormState>();
     return Scaffold(
-      body: Center(
-        //envolve os campos do fomrs. Necessário para o validator.
-        child: Form(
-          // key privada do formulário.
-          key: _formKey,
-          // coluna única que contém o formulário.
-          child: Column(
-            //alinhamento vertical.
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //Input User Credentials
-              TextFormField(
-                selectAllOnFocus: true,
-                textAlign: TextAlign.center,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira um usuário';
-                  }
-
-                  return null;
-                },
-                decoration:
-                    //Define o ícone a esquerda do campo
-                    InputDecoration(
-                      border: OutlineInputBorder(),
+      // GestureDetector para esconder o teclado ao tocar fora dos campos.
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: SizedBox(
+            // Ocupa a altura da tela, permitindo o alinhamento central.
+            height: MediaQuery.of(context).size.height,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Anima a mudança de altura da imagem suavemente.
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                    height: _imageHeight,
+                    child: Image.asset(uriLogo, fit: BoxFit.contain),
+                  ),
+                  const SizedBox(height: 60),
+                  TextFormField(
+                    controller: _userController,
+                    focusNode: _userFocusNode,
+                    decoration: const InputDecoration(
+                      labelText: 'Usuário',
                       icon: Icon(Icons.person),
-                      iconColor: azul60,
-                      labelText: textLabelFormInput,
-                      helperText: helperTextInputForms,
-                      errorText: errorTextInputForms,
-                      focusColor: azul60,
-                      hoverColor: azul60,
+                      border: OutlineInputBorder(),
                     ),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Por favor, insira um usuário';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: _passwordController,
+                    focusNode: _passwordFocusNode,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Senha',
+                      icon: Icon(Icons.lock),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira a senha';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  _isLoading
+                      ? const CircularProgressIndicator()
+                      : ElevatedButton(
+                          onPressed: _submitForm,
+                          child: const Text('Entrar'),
+                        ),
+                ],
               ),
-              //Input User Password
-              TextFormField(),
-
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processando Dados...')),
-                    );
-                  }
-                },
-                child: const Text('Validar'),
-              ),
-            ],
+            ),
           ),
         ),
       ),
