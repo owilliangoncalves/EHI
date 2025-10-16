@@ -25,4 +25,6 @@ flutter:
           style: italic
         - asset: './assets\fonts\montserrat\Montserrat-SemiBold.ttf'
           weight: 700
+  assets:
+    - ./assets/images/
 
