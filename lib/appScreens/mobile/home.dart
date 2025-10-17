@@ -1,7 +1,7 @@
+import 'package:ehi_system/appDatabase/supabase.dart';
 import 'package:ehi_system/appThemes/colors.dart';
 import 'package:ehi_system/appThemes/texts.dart';
 import 'package:ehi_system/appWidgets/mobile/login.dart';
-import 'package:ehi_system/appWidgets/mobile/signup.dart';
 import 'package:flutter/material.dart';
 
 class MobileHome extends StatelessWidget {
@@ -37,16 +37,16 @@ class MobileHome extends StatelessWidget {
               ),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SignupMobile()),
+                MaterialPageRoute(
+                  builder: (context) => const MobileFormsLogin(),
+                ),
               ),
             ),
             ElevatedButton(
               child: Text('Login'),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const MobileFormsLogin(),
-                ),
+                MaterialPageRoute(builder: (context) => const SupaBaseAuth()),
               ),
             ),
           ],
