@@ -40,7 +40,7 @@ class LoginForm {
 /// Caminhos para os assets (imagens, etc).
 class Assets {
   Assets._();
-  final String logo = 'assets/images/seu_logo.png';
+  static const String logo = 'assets/images/seu_logo.png';
 }
 
 /// Define label debug como false

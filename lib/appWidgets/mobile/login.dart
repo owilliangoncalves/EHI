@@ -1,6 +1,6 @@
 import 'package:ehi_system/Appthemes/colors.dart';
+import 'package:ehi_system/appThemes/texts.dart';
 import 'package:flutter/material.dart';
-import 'package:ehi_system/Appthemes/texts.dart';
 
 ///StateFulWidget que representa o forms de login com redimensionamento da imagem
 class MobileFormsLogin extends StatefulWidget {
@@ -106,7 +106,7 @@ class _MobileFormsLoginState extends State<MobileFormsLogin> {
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                     height: _imageHeight,
-                    child: Image.asset(uriLogo, fit: BoxFit.contain),
+                    child: Image.asset(Assets.logo, fit: BoxFit.contain),
                   ),
                   const SizedBox(height: 30),
                   TextFormField(
