@@ -19,7 +19,7 @@ class Greetings {
   // Construtor privado para garantir o uso via 'AppStrings.greetings'.
   Greetings._();
   final String welcome =
-      'Olá, seja bem vindo(a). Para começar faça o login ou crie uma conta.';
+      'Olá, seja bem vindo(a). Para começar, faça o login ou crie uma conta.';
 }
 
 /// Títulos usados em AppBars e páginas.
@@ -40,7 +40,7 @@ class LoginForm {
 /// Caminhos para os assets (imagens, etc).
 class Assets {
   Assets._();
-  static const String logo = 'assets/images/seu_logo.png';
+  static const String logo = 'assets/images/logo.png';
 }
 
 /// Define label debug como false
